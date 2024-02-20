@@ -20,3 +20,5 @@ if hash conda 2>/dev/null; then
 else
 	echo Anaconda not found. Ignoring conda settings.
 fi
+
+source ~/.bashrc
