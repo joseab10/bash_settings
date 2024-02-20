@@ -23,8 +23,10 @@ UNDERL="\[\e[4m\]"
 
 RESET="\[\e[0m\]"
 
-FMT_USR=${RED}
-FMT_HST=${RED}${BOLD}${UNDERL}
+FMT_USR_LOCAL=${LIGHT_GRAY}
+FMT_HST_LOCAL=${LIGHT_GRAY}
+FMT_USR_REMOTE=${RED}
+FMT_HST_REMOTE=${RED}${BOLD}${UNDERL}
 FMT_ENV=${GREEN}
 FMT_GIT=$LIGHT_MAGENTA
 FMT_DIR=$LIGHT_BLUE
@@ -32,7 +34,7 @@ FMT_DIR=$LIGHT_BLUE
 export GIT_PS1_SHOWDIRTYSTATE=1
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-__curr_env(){
+__current_env(){
         ENV_PS1=""
         if [ -f /.dockerenv ]; then
                 ENV_PS1+="🅓 $(hostname)"
@@ -58,9 +60,33 @@ __curr_env(){
 # '\h' adds the hostname of the current computer
 # '\$(__git_ps1)' adds git-related stuff
 # '\W' adds the name of the current directory
-PS1="\n${FMT_USR}\u@${RESET}"
-PS1+="${FMT_HST}\h${RESET}${FMT_USR}:${RESET}"
-PS1+="${FMT_ENV}\$(__curr_env)${RESET}"
+
+# Start out with a line break, to separate from previous output.
+PS1="\n"
+
+# Username and hostname with distinction between local and remote shell.
+PS_HOST=$(hostname)
+if [ -z "$SSH_TTY" ]; then
+	PS1+="${FMT_USR_LOCAL}♟ \u@${RESET}"
+	PS1+="${FMT_HST_LOCAL}${PS_HOST}${RESET}"
+	PS1+="${FMT_USR_LOCAL}:${RESET}"
+else
+	PS1+="${FMT_USR_REMOTE}♟ \u@${RESET}"
+	PS1+="${FMT_HST_REMOTE}${PS_HOST^^}${RESET}"
+	PS1+="${FMT_USR_REMOTE}:${RESET}"
+fi
+
+# Conda, venv or docker environment
+PS1+="${FMT_ENV}\$(__current_env)${RESET}"
+
+# Git branch and status
 PS1+="${FMT_GIT}\$(__git_ps1)${RESET}"
+
+# Current path
 PS1+="${FMT_DIR} …/\W${RESET}"
-PS1+="\n${LIGHT_GRAY}$ ${RESET}"
+
+# Another line break since the prompt is probably too long now.
+PS1+="\n"
+
+# Actual prompt!
+PS1+="${LIGHT_GRAY}\$ ${RESET}"
