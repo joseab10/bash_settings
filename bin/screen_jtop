@@ -1,0 +1,4 @@
+screen -t "HTop" htop
+split -v
+focus
+screen -t "WNS" bash -ic wns

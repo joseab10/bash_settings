@@ -1,17 +1,15 @@
 #! /bin/bash
 # Script for installing my shell preferences
 
-SETTINGS_DIR = ~/etc
+SETTINGS_DIR=~/etc
+SCRIPT_DIR=$(dirname "$0")
 
+echo Creating $SETTINGS_DIR
 mkdir $SETTINGS_DIR
 
-cd "$(dirname "$0")"
+echo Installing files to $SETTINGS_DIR
+cp -r "$SCRIPT_DIR" "$SETTINGS_DIR"
 
-cp git-completion.bash $SETTINGS_DIR
-cp git-prompt.sh       $SETTINGS_DIR
-cp prompt_jab.sh       $SETTINGS_DIR
-cp alias_jab.sh        $SETTINGS_DIR
-cp env_jab.sh          $SETTINGS_DIR
-cp func_jab.sh         $SETTINGS_DIR
-
-cat bashrc >> ~/.bashrc
+echo Adding source commands to ~/.bashrc
+cd "$SCRIPT_DIR"
+cat etc/bashrc >> ~/.bashrc

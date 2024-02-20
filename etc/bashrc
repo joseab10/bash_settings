@@ -2,20 +2,20 @@
 # SOURCES                                                                      |
 #-------------------------------------------------------------------------------
 # Enable tab completion
-source ~/etc/git-completion.bash
+source ~/etc/etc/git-completion.bash
 
 # Change command prompt
-source ~/etc/git-prompt.sh
+source ~/etc/etc/git-prompt.sh
 
 # Change command prompt
-source ~/etc/prompt_jab.sh
+source ~/etc/etc/prompt_jab.sh
 
 # Create aliases
-source ~/etc/alias_jab.sh
+source ~/etc/etc/alias_jab.sh
 
 # Environment Variables
-source ~/etc/env_jab.sh
+source ~/etc/etc/env_jab.sh
 
 # Functions
-source ~/etc/func_jab.sh
+source ~/etc/etc/func_jab.sh
 
