@@ -42,5 +42,7 @@ else
 	printf "Anaconda not found. Skipping.\n"
 fi
 
-printf "\nSourcing .bashrc profile for changes to take effect."
+printf "\nSourcing .bashrc profile to make sure there are no errors.\n"
 source ~/.bashrc
+
+printf "\nRun source ~/.bashrc or start a new session for the changes to take effect.\nDone.\n"
