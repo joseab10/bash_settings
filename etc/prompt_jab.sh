@@ -56,6 +56,19 @@ __current_env(){
         fi
 }
 
+__current_workdir(){
+        CURR_PWD=""
+
+        if [[ "$PWD" == "/" ]]; then
+                CURR_PWD=" /"
+        elif [[ "$PWD" == "$HOME" ]]; then
+                CURR_PWD=" ～"
+        else 
+                CURR_PWD=" …/$(basename $PWD)"
+        fi
+        echo "$CURR_PWD"
+}
+
 # '\u' adds the name of the current user to the prompt
 # '\h' adds the hostname of the current computer
 # '\$(__git_ps1)' adds git-related stuff
@@ -83,7 +96,7 @@ PS1+="${FMT_ENV}\$(__current_env)${RESET}"
 PS1+="${FMT_GIT}\$(__git_ps1)${RESET}"
 
 # Current path
-PS1+="${FMT_DIR} …/\W${RESET}"
+PS1+="${FMT_DIR}\$(__current_workdir)${RESET}"
 
 # Another line break since the prompt is probably too long now.
 PS1+="\n"
