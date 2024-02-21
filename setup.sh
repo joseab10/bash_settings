@@ -5,13 +5,25 @@ SETTINGS_DIR=~/etc
 SCRIPT_DIR=$(dirname "$0")
 TERM_PROFILE=~/.bashrc
 
-#printf "\nCreating $SETTINGS_DIR"
-#if [ -d "$SETTINGS_DIR" ]; then
-	#printf "$SETTINGS_DIR exists. Skipping"
-#mkdir $SETTINGS_DIR
-
 printf "\nInstalling files to $SETTINGS_DIR\n"
-rsync -av "$SCRIPT_DIR" "$SETTINGS_DIR" --exclude .git
+if hash rsync 2>/dev/null; then
+	rsync -av "$SCRIPT_DIR" "$SETTINGS_DIR" --exclude .git
+else
+	# In case rsync is not available (e.g. on Docker)
+	printf "\nCreating $SETTINGS_DIR"
+	if [ -d "$SETTINGS_DIR" ]; then
+		printf "$SETTINGS_DIR exists. Skipping"
+	else
+		mkdir -p "$SETTINGS_DIR"
+	fi
+
+	printf "\nCopying files to $SETTINGS_DIR\n"
+	CP_PATHS="bin etc"
+	for path in $CP_PATHS; do
+		printf "Copying $path\n"
+		cp -r "$SCRIPT_DIR/$path" "$SETTINGS_DIR"
+	done
+fi
 
 printf "\nAdding source command to $TERM_PROFILE\n"
 SRC_CMD="source ${SETTINGS_DIR}/etc/bashrc"
