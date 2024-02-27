@@ -1,0 +1,74 @@
+
+#==============================================================================#
+#                                                                              #
+# MacOS Files                                                                  #
+#                                                                              #
+#==============================================================================#
+
+# Folder view configuration files
+.DS_Store
+.AppleDouble
+.LSOverride
+Desktop.ini
+
+# Icon must end with two \r
+Ico# Icon must end with two \r
+Icon^M
+
+# Thumbnail cache files
+._*
+Thumbs.db
+.VolumeIcon.icns
+
+# Spotlight auxiliary files
+.Spotlight-v100
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.com.apple.timemachine.donotpresent
+
+# Temporary trash bin in external drives and network shares
+.Trashes
+
+# iCloud generated files
+*.icloud
+
+
+#==============================================================================#
+#                                                                              #
+# IDE auxiliary files                                                          #
+#                                                                              #
+#==============================================================================#
+
+# PyCharm
+.idea/*
+
+# VSCode
+.vscode/*
+
+
+#==============================================================================#
+#                                                                              #
+# Compiled files                                                               #
+#                                                                              #
+#==============================================================================#
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C++
+*.out
+
+
+#==============================================================================#
+#                                                                              #
+# Misc                                                                         #
+#                                                                              #
+#==============================================================================#
+
+# Virtual Environments
+venv
+
+_TMP_*/

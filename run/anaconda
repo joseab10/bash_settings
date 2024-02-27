@@ -1,0 +1,8 @@
+#! /bin/bash
+
+printf "\nSetting Anaconda to not modify the shell's prompt\n"
+if hash conda 2>/dev/null; then
+	conda config --set changeps1 False
+else
+	printf "Anaconda not found. Skipping.\n"
+fi

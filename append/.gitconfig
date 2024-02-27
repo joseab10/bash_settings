@@ -1,0 +1,11 @@
+[alias]
+        graph = "!f() { echo; echo '################################################################################'; echo '#                                 Project Tree                                 #'; echo '################################################################################'; echo; git --no-pager log --pretty=format:\"%h %d %s\" --all --graph --decorate --color=always --abbrev-commit; echo;}; f | less -R"
+[core]
+        excludesfile = /home/arceyd/.gitignore
+[filter "lfs"]
+        required = true
+        clean = git-lfs clean -- %f
+        smudge = git-lfs smudge -- %f
+        process = git-lfs filter-process
+[init]
+        defaultBranch = main
