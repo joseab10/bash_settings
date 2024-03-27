@@ -9,3 +9,5 @@ export LANG="en_US.UTF-8"
 export EDITOR=vim
 export VISUAL=vi
 
+export PATH=$HOME/etc/bin:$PATH
+

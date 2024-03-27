@@ -1,0 +1,51 @@
+#! /bin/bash
+
+
+#HOSTS="rlgpu1 rlgpu2 rlgpu3 rlgpu4 rlgpu5 rlgpu6 rlgpu7 rlgpu8 mbigpu1 mbigpu2"
+HOSTS="rlgpu1 rlgpu2 rlgpu3 rlgpu4 rlgpu5 rlgpu6 rlgpu7 rlgpu8"
+
+ZOOM="0.6"
+COLS=200
+ROWS=80
+GEOMETRY="${COLS}x${ROWS}"
+
+
+to_upper(){
+	echo $1 | awk '{print toupper($1)}'
+}
+
+
+remote_jtop() {
+	UC_HOST=$(to_upper $1)
+	gnome-terminal \
+		--tab \
+		--zoom=$ZOOM \
+		--geometry=$GEOMETRY \
+		--title=$UC_HOST \
+		-- \
+		ssh -t $1 "bash -l -O expand_aliases -c '. ~/.bashrc && jtop'"
+}
+
+
+local_jtop() {
+	UC_HOST=$(to_upper $HOSTNAME)
+	gnome-terminal \
+		--tab \
+		--zoom=$ZOOM \
+		--geometry=$GEOMETRY \
+		--title=$UC_HOST \
+		-- \
+		bash -l -O expand_aliases -c '. ~/.bashrc && jtop'
+}
+
+main() {
+	resize -s $ROWS $COLS
+	local_jtop
+	for remote in $HOSTS; do
+		remote_jtop $remote
+	done
+	exit
+}
+
+
+main
